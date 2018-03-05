@@ -12,7 +12,7 @@ time = 0.5;
 % Chosen values
 Vspike = 0; 
 dt = 1E-4;
-
+spikes = 0;
 iterations =  time/dt;
 I = zeros(iterations, 1); 
 
@@ -26,10 +26,12 @@ for n= 1:iterations
     if Vm >= Vth
         V(n, 1) = Vspike;
         Vm = Vreset;
+        spikes = spikes + 1; 
+        
     
     % Use the membrane equation
     else 
-        dv = (1/tao) * ((-1* Vm) + Vrest + R_m*I(n,1)) * dt
+        dv = (1/tao) * ((-1* Vm) + Vrest + R_m*I(n,1)) * dt;
         Vm = Vm + dv;
         V(n, 1) = Vm; 
     end 

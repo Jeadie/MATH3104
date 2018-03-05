@@ -29,14 +29,14 @@ for n= 1:iterations
     
     % Use the membrane equation
     else 
-        dv = (1/tao) * ((-1* Vm) + Vrest + R_m*I(n,1)) * dt
+        dv = (1/tao) * ((-1* Vm) + Vrest + R_m*I(n,1)) * dt;
         Vm = Vm + dv;
         V(n, 1) = Vm; 
     end 
 end
 
 plot(V); 
-xlabel('Time, (ms)')
+xlabel('Time (ms)')
 ylabel('Membrane Volage (V)')
 title('Membrane Volage (V) vs Time (ms)')
 
