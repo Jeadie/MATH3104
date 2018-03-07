@@ -33,11 +33,11 @@ for n= 1:iterations
     if Vm >= Vth
         V(n, 1) = Vspike;
         Vm = Vreset;
-        g_sra = g_sra + dg_sra; 
+        g_sra += dg_sra; 
 
     % Use the membrane equation
     else 
-        dv = (1/tao) * ((-1* Vm) + Vrest + R_m*I(n,1) - (g_sra * r_sra * (Vm - V_k))) * dt ;
+        dv = (1/tao) * ((-1* Vm) + Vrest + R_m*I(n,1) - g_sra * r_sra * (Vm - V_k) ) * dt 
         Vm = Vm + dv;
         
         % Spike rate adaptation variable updates
