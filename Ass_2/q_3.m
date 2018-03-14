@@ -1,4 +1,6 @@
-clear 
+
+
+clear all
 
 % Question 1
 load('flydata.mat');
@@ -18,30 +20,29 @@ xlabel('Time Before 25th spike (ms)');
 ylabel('Stimulus');
 title('Stimulus vs. Time Before 25th spike (ms)'); 
 hold off 
+pause % Pauses just allow control over script to save figures for assignment
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Question 2
-% Find indices of all spikes starting from timestep 150. Must add 150 to
-% each to account for rho's indexing
-indices = find(rho(150:length(rho), 1)==1, length(rho)) + 150;
+spike_count  = 0; % Number of spike that have occured
+spike_stimulus_sum = zeros(150, 1); % Summation of all the stimulus 
 
-sum_stim = zeros(150, 1); 
-
-% Iterate through All spikes
-for spike_idx = indices
-    % Add stimulus of 150 timesteps prior to spike 
-    sum_stim = sum_stim + stim(spike_idx-150:spike_idx-1, 1); 
+for i = 150:length(rho)
+    if(rho(i) ==1) 
+        spike_count = spike_count +1; 
+        spike_stimulus_sum = spike_stimulus_sum + stim(i-150 : i-1, 1); 
+    end
 end
 
 % Average summation to get STA
-sum_stim = sum_stim / length(indices);
-plot(300:-2:1,sum_stim); 
+spike_stimiuls_average = spike_stimulus_sum/ spike_count; 
+plot(1:2:300,spike_stimiuls_average); 
 hold on 
 xlabel('Time Before spike (ms)'); 
 ylabel('Spike Triggered Average Stimulus');
-title('Spike Triggered Average Stimulus vs. Time Before spike (ms)'); 
+title(' Question 2: Spike Triggered Average Stimulus vs. Time (ms)'); 
 hold off 
-
+pause
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Question 3
@@ -61,6 +62,7 @@ xlabel('Time (ms)');
 ylabel('Spike value (1/0)');
 title('Spike value (1/0) vs Time (ms)'); 
 hold off 
+pause
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Question 4
@@ -74,7 +76,7 @@ samples = 1000; % number of spike train trials
 p_interval = m_f_rate* bin_s;
 % Create random spikes with p_interval chance for 1000 trials
 spike_vect_samples = rand((duration/bin_s), samples) <= p_interval;
-
+pause
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Question 5
@@ -88,12 +90,13 @@ xlabel('Number of Spikes');
 ylabel('Frequency');
 title('Frequency of Spike Count over 1000 trials'); 
 hold off 
+pause
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Question 6
 % Calcuate average and variance of trial values and calculate fano factor
 avg = mean(trials); 
 vari = var(trials); 
-fano = vari/avg; 
-
+fano = vari/avg
+pause
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
