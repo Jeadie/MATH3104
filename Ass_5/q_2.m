@@ -1,3 +1,19 @@
+n=100; 
+final_y = nan(n-1, 1); 
+i=1;
+for s= 0.0:0.05/n:0.05
+    p_0 = 10*s; 
+    C_p = @(t) 10*s-(p_0-10*s )* exp(-0.1*t) ; 
+    cp = C_p(30); 
+    rp = @(t) 0.1*cp / ((0.95 * cp - 0.21) + sqrt((0.95*cp-0.21)^2 - 0.2*(0.2- cp)*cp)); 
+        
+    final_y(i,1) = rp(30);   
+    i= i +1; 
+end
+% plot(0.00:0.05/n:0.05, final_y) 
+return
+
+
 n = 100;
 colours = ['r-', 'b-', 'g-', 'ro-', 'bo-', 'go-'];
 t_span = [0, 30]; 
@@ -55,7 +71,7 @@ hold off
 pause
 
 
-plot(0.00:0.05/n:0.1, final_y) 
+plot(0.00:0.05/n:0.1, final_y, 'ro') 
 xlabel('s')
 ylabel('equilibrium');
 title('equilibrium value of concentration of  phosphorylated R');
