@@ -1,17 +1,10 @@
-n=1000; 
+n=100; 
 i=1;
 s= 0.0:0.05/n:0.05; 
 
 analytic_func = @(s) ((0.21-9.5 .*s) - sqrt((9.5*s-0.21).^2 -2*(0.2-10.*s).*s))./ (0.4 - 20.*s);
-y = analytic_func(s);
 
-% fix discontinuity 
-y(1,401) = 0.5;
-
-plot(s, y); 
-xlabel('s')
-ylabel('equilibrium')
-title('Analytic solution to Rp concentration for various synthesis rates')
+plot(s, analytic_func(s)); 
 return 
 
 
